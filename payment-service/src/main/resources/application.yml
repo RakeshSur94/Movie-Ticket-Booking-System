@@ -1,0 +1,53 @@
+server:
+  port: ${SERVER_PORT:8001}
+spring:
+  application:
+    name: ${APPLICATION_NAME:payment-service}
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:payments?createDatabaseIfNotExist=true}
+    username: "${MYSQL_USER:root}"
+    password: "${MYSQL_PASSWORD:Emami@4321}"
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  kafka:
+    consumer:
+      bootstrap-servers:
+        - "localhost:19092"
+        - "localhost:29092"
+        - "localhost:39092"
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: earliest
+    producer:
+      bootstrap-servers:
+        - "localhost:19092"
+        - "localhost:29092"
+        - "localhost:39092"
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+eureka:
+  client:
+    register-with-eureka: ${REGISTER_WITH_EUREKA:true}
+    service-url:
+      defaultZone: ${DEFAULT_ZONE:http://localhost:8761/eureka/}
+management:
+  endpoints:
+    web:
+      exposure:
+       include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+stripe:
+    key: sk_test_51J9QEfSJ251E1BhYfT5KAT2kF2Ht7Td8qTtVGbVVewjrN3k2pmeVG2tbwNd3csbiGUitkEayv0Pae829sVUHV3Vj00mDIjVjOy
+
+

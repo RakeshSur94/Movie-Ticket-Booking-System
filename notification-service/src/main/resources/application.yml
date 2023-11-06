@@ -1,0 +1,31 @@
+server:
+  port: ${SERVER_PORT:8002}
+spring:
+  application:
+    name: ${APPLICATION_NAME:notification-service}
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: rakeshsur72@gmail.com
+    password: uhan ymef opzt kdrr
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  kafka:
+    consumer:
+      bootstrap-servers:
+        - "localhost:19092"
+        - "localhost:29092"
+        - "localhost:39092"
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: earliest
+
+eureka:
+  client:
+    register-with-eureka: ${FETCH_REGISTRY:true}
+    service-url:
+      defaultZone: ${DEFAULT_ZONE:http://localhost:8761/eureka/}
