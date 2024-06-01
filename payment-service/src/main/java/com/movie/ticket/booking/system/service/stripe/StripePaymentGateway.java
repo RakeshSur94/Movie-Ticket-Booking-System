@@ -45,7 +45,7 @@ public class StripePaymentGateway {
 
 
         } catch (Exception e) {
-            log.error("Payment failed at gateway level with exception : "+ e.getMessage());
+            log.error("Payment failed at gateway level with exception : {}", e.getMessage());
         }
     }
 
