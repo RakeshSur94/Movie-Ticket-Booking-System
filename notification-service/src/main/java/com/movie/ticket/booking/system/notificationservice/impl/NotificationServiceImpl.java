@@ -27,15 +27,21 @@ public class NotificationServiceImpl implements INotificationService {
     private String fromEmail;
     @Override
     public void sendConformationMail(BookingDTO bookingDTO) {
+
+//how docker container work?
+
+
         try {
             log.info("Entered into java mailing system service");
             MimeMessage mimeMessage=javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper=new MimeMessageHelper(mimeMessage,true);
             mimeMessageHelper.setFrom(fromEmail);
-            mimeMessageHelper.setSubject("Conformation from Book My Show .....");
-            mimeMessageHelper.setText("Ticket Booking conformation "+bookingDTO.getBookingStatus()+
-                    " !!! with seat number "+bookingDTO.getSeatsBooked().toString()+" with booking amount of :: "+
-                    bookingDTO.getBookingAmount()+" Rupee show date:: "+bookingDTO.getShowDate()+" show time:: "+bookingDTO.getShowTime());
+            mimeMessageHelper.setSubject("Conformation mail from Book My Show .....Its an auto generated mail don't reply");
+            mimeMessageHelper.setText("Tickets Booking "+bookingDTO.getBookingStatus()+ "\n"+"\n"+
+
+                    "Seat Number "+bookingDTO.getSeatsBooked().toString()+"\n"+"\n" +
+                    "Booking Amount Rupees: "+bookingDTO.getBookingAmount()+"\n"+"\n" +"Show Date: "+bookingDTO.getShowDate()+"\n"+"\n" +
+                    "Show Time: "+bookingDTO.getShowTime()+"\n"+"Thank you for using Book My Show");
             mimeMessageHelper.setTo(bookingDTO.getUserId());
             mimeMessageHelper.setSentDate(new Date());
             mimeMessageHelper.addAttachment("bookmyshow.png",new ClassPathResource("bookmyshow.png"));
